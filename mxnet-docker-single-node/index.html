@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="first," />
+  <meta name="keywords" content="ML, Performance, 源码编译," />
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="Welcome to Zhilong Zheng’s blog.">
-<meta name="keywords" content="first">
+<meta name="description" content="环境: 单server, Ubuntu 16.04  安装并启动Docker实例 安装Docker, 按照官方教程安装: http://docker.org/   获取Ubuntu镜像，这里使用的是mxnet提供的image: sudo docker pull mxnet/python  启动一个Docker instance, 可使用 123456#!/usr/bin/env bashinst">
+<meta name="keywords" content="ML, Performance, 源码编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="First blog on hexo">
-<meta property="og:url" content="http://yoursite.com/first-blog/index.html">
+<meta property="og:title" content="mxnet学习(0) -- 使用Docker部署单节点mxnet">
+<meta property="og:url" content="http://yoursite.com/mxnet-docker-single-node/index.html">
 <meta property="og:site_name" content="Zhilong Zheng的博客">
-<meta property="og:description" content="Welcome to Zhilong Zheng’s blog.">
+<meta property="og:description" content="环境: 单server, Ubuntu 16.04  安装并启动Docker实例 安装Docker, 按照官方教程安装: http://docker.org/   获取Ubuntu镜像，这里使用的是mxnet提供的image: sudo docker pull mxnet/python  启动一个Docker instance, 可使用 123456#!/usr/bin/env bashinst">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-21T16:03:36.519Z">
+<meta property="og:image" content="http://yoursite.com/mxnet-docker-single-node/version1.png">
+<meta property="og:image" content="http://yoursite.com/mxnet-docker-single-node/version2.png">
+<meta property="og:image" content="http://yoursite.com/mxnet-docker-single-node/train.png">
+<meta property="og:updated_time" content="2018-08-22T14:37:26.405Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="First blog on hexo">
-<meta name="twitter:description" content="Welcome to Zhilong Zheng’s blog.">
+<meta name="twitter:title" content="mxnet学习(0) -- 使用Docker部署单节点mxnet">
+<meta name="twitter:description" content="环境: 单server, Ubuntu 16.04  安装并启动Docker实例 安装Docker, 按照官方教程安装: http://docker.org/   获取Ubuntu镜像，这里使用的是mxnet提供的image: sudo docker pull mxnet/python  启动一个Docker instance, 可使用 123456#!/usr/bin/env bashinst">
+<meta name="twitter:image" content="http://yoursite.com/mxnet-docker-single-node/version1.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/first-blog/"/>
+  <link rel="canonical" href="http://yoursite.com/mxnet-docker-single-node/"/>
 
 
 
 
 
-  <title>First blog on hexo | Zhilong Zheng的博客</title>
+  <title>mxnet学习(0) -- 使用Docker部署单节点mxnet | Zhilong Zheng的博客</title>
   
 
 
@@ -253,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/first-blog/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/mxnet-docker-single-node/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhilong Zheng">
@@ -270,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">First blog on hexo</h1>
+          <h1 class="post-title" itemprop="name headline">mxnet学习(0) -- 使用Docker部署单节点mxnet</h1>
         
 
         <div class="post-meta">
@@ -282,7 +286,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T00:02:51+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T16:56:55+08:00">
                 2018-08-22
               </time>
             
@@ -305,8 +309,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index">
-                    <span itemprop="name">test</span>
+                  <a href="/categories/mxnet/" itemprop="url" rel="index">
+                    <span itemprop="name">mxnet</span>
                   </a>
                 </span>
 
@@ -342,7 +346,55 @@
       
 
       
-        <p>Welcome to Zhilong Zheng’s blog.</p>
+        <ul>
+<li>环境: 单server, Ubuntu 16.04</li>
+</ul>
+<h3 id="安装并启动Docker实例"><a href="#安装并启动Docker实例" class="headerlink" title="安装并启动Docker实例"></a>安装并启动Docker实例</h3><ol>
+<li><p>安装Docker, 按照官方教程安装: <code>http://docker.org/</code> </p>
+</li>
+<li><p>获取Ubuntu镜像，这里使用的是mxnet提供的image: <code>sudo docker pull mxnet/python</code></p>
+</li>
+<li><p>启动一个Docker instance, 可使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line"></span><br><span class="line">instance_name=$1  # Name of docker instance</span><br><span class="line">cpus=$2  # Assignment of dedicated CPUs, e.g., 2,3,4,5</span><br><span class="line"></span><br><span class="line">docker run -it --cpuset-cpus=&quot;$2&quot; -v /home/ubuntu/projects/mxnet-learning/incubator-mxnet:/mxnet-src --name $1 -d mxnet/python bash</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里使用了<code>-v</code>来指定共享目录，是为了直接在物理Host主机上编译mxnet的源码，方便在同一server里的所有Docker instances使用</p>
+<h3 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h3><ol>
+<li><p>按照官方教程安装依赖库: <code>https://mxnet.apache.org/install/index.html?platform=Linux&amp;language=Python&amp;processor=CPU</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y build-essential git</span><br><span class="line">sudo apt install -y libopenblas-dev liblapack-dev</span><br><span class="line">sudo apt install -y libopencv-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载源码: <code>git clone --recursive https://github.com/apache/incubator-mxnet</code></p>
+</li>
+<li>开始编译<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd incubator-mxnet</span><br><span class="line">make -j $(nproc) USE_OPENCV=1 USE_BLAS=openblas USE_DIST_KVSTORE=1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>添加了USE_DIST_KVSTORE=1，因为后续会使用分布式的训练。编译需要等待一段时间</p>
+<h3 id="Python绑定"><a href="#Python绑定" class="headerlink" title="Python绑定"></a>Python绑定</h3><ol>
+<li><p>进入Docker instance。以name为<code>mxnet-main</code>实例为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it mxnet-main /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装python依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y python-dev python-setuptools python-pip libgfortran3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入mxnet-src (docker run时设置的共享目录名称)，并安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd cd /usr/local/lib/python2.7/dist-packages # 建议进入python lib目录里把原有的mxnet给删除</span><br><span class="line">rm -rf mxnet</span><br><span class="line">cd /mxnet-src/python</span><br><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><ol>
+<li>验证版本，从docker hub上pull的镜像自带mxnet环境，其版本号为1.2.1 (截止到2018-8-22 21:42), 通过安装github上clone的源码，其版本号为1.3.0<center><img src="/mxnet-docker-single-node/version1.png" title="Version before installation"></center>
+
+</li>
+</ol>
+<center><img src="/mxnet-docker-single-node/version2.png" title="Version after installation"></center>
+
+<ol start="2">
+<li>安装完整性验证，以<code>image-classification</code>为例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /mxnet-src/example/image-classification</span><br><span class="line">python train_mnist.py</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<center><img src="/mxnet-docker-single-node/train.png"></center>
+
+
+
 
       
     </div>
@@ -360,7 +412,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/first/" rel="tag"># first</a>
+            <a href="/tags/ML-Performance-源码编译/" rel="tag"># ML, Performance, 源码编译</a>
           
         </div>
       
@@ -373,15 +425,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/first-blog/" rel="next" title="First blog on hexo">
+                <i class="fa fa-chevron-left"></i> First blog on hexo
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/mxnet-docker-single-node/" rel="prev" title="mxnet学习(0) -- 使用Docker部署单节点mxnet">
-                mxnet学习(0) -- 使用Docker部署单节点mxnet <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -504,6 +565,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装并启动Docker实例"><span class="nav-number">1.</span> <span class="nav-text">安装并启动Docker实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译源码"><span class="nav-number">2.</span> <span class="nav-text">编译源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python绑定"><span class="nav-number">3.</span> <span class="nav-text">Python绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
